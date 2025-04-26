@@ -120,13 +120,16 @@
     </div>
 
     <script>
+        // API configuration
+        const API_BASE_URL = window.location.hostname === 'localhost' ? '' : 'https://todo-go-supto.netlify.app/';
+
         // Task list management
         let tasks = [];
 
         // Load tasks from server
         async function loadTasks() {
             try {
-                const response = await fetch('/api/tasks');
+                const response = await fetch(`${API_BASE_URL}/api/tasks`);
                 tasks = await response.json();
                 renderTasks();
             } catch (error) {
@@ -142,7 +145,7 @@
             const priority = document.getElementById('priority').value;
 
             try {
-                const response = await fetch('/api/tasks', {
+                const response = await fetch(`${API_BASE_URL}/api/tasks`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -162,7 +165,7 @@
         // Mark task as complete
         async function markComplete(id) {
             try {
-                const response = await fetch(`/api/tasks/${id}/complete`, {
+                const response = await fetch(`${API_BASE_URL}/api/tasks/${id}/complete`, {
                     method: 'POST',
                 });
 
@@ -177,7 +180,7 @@
         // Delete task
         async function deleteTask(id) {
             try {
-                const response = await fetch(`/api/tasks/${id}`, {
+                const response = await fetch(`${API_BASE_URL}/api/tasks/${id}`, {
                     method: 'DELETE',
                 });
 
